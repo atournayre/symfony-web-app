@@ -1,0 +1,20 @@
+includes:
+    - ../../vendor/phpstan/phpstan-symfony/extension.neon
+    - ../../vendor/spaze/phpstan-disallowed-calls/extension.neon
+    - ../../vendor/thecodingmachine/phpstan-safe-rule/phpstan-safe-rule.neon
+    - ../../tools/phpstan/disallowed-calls.neon
+
+parameters:
+    level: 6
+    paths:
+        - bin/
+        - config/
+        - public/
+        - src/
+        - tests/
+    unused_public:
+        methods: true
+        properties: true
+        constants: true
+        template_paths:
+            - templates
