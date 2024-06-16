@@ -19,6 +19,9 @@ ENABLE_DOCUMENTATION=true
 ENABLE_ADR=true
 ## END / Feature flag
 
+# Start time
+start_time=$(date +%s)
+
 # Warnings
 if [ $ENABLE_WARNINGS = true ]; then
 	# All docker containers will be stopped : confirm to continue
@@ -193,7 +196,7 @@ if [ $ENABLE_QA = true ]; then
 
   docker exec -it "$(docker compose ps -q php)" composer require --dev -W \
   	atournayre/phparkitect-rules \
-	friendsofphp/php-cs-fixer \
+  	friendsofphp/php-cs-fixer \
     rector/rector \
     rector/swiss-knife \
     phpstan/phpstan \
@@ -221,7 +224,6 @@ if [ $ENABLE_QA = true ]; then
   mv _files/tools/rector.php tools/rector.php
   mv _files/Makefile Makefile
   mv _files/phpunit.xml phpunit.xml
-  rm -rf _files
   rm phpunit.xml.dist
   rm phpstan.dist.neon
 
@@ -330,8 +332,6 @@ if [ $ENABLE_ADR = true ]; then
   mv _files/docs/architecture-decision-records.md docs/architecture-decision-records.md
   mv _files/docs/adr/ADR-0001-Use-Postgresql-Database.md docs/adr/ADR-0001-Use-Postgresql-Database.md
 
-  echo '# Architecture Decision Records' > docs/adr/README.md
-
   echo '\033[1;32m>> ADR completed.\033[00m'
   echo ''
 fi
@@ -346,3 +346,17 @@ docker exec -it "$(docker compose ps -q php)" composer bump
 make qa
 
 echo '\033[1;32m>> 🎉 Installation completed.\033[00m'
+
+# End time
+end_time=$(date +%s)
+execution_time=$((end_time - start_time))
+
+# Execution time in minutes and seconds
+execution_time_minutes=$((execution_time / 60))
+execution_time_seconds=$((execution_time % 60))
+
+echo '\033[1;32m>> 🕒 Execution time: '"$execution_time_minutes"' minutes '"$execution_time_seconds"' seconds.\033[00m'
+echo ''
+
+echo '\033[1;32m>> 🚀 Happy coding!\033[00m'
+echo ''
