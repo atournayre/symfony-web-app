@@ -75,7 +75,7 @@ tests: ## Run tests
 	@$(DOCKER_COMP) exec php vendor/bin/phpunit
 
 phpstan: ## Run PHPStan
-	@$(DOCKER_COMP) exec php vendor/bin/phpstan analyse --configuration=tools/phpstan/phpstan.neon
+	@$(DOCKER_COMP) exec php vendor/bin/phpstan analyse --configuration=tools/phpstan/phpstan.neon --memory-limit=4G
 
 rector: ## Run Rector
 	@$(DOCKER_COMP) exec php vendor/bin/rector process src --config=tools/rector.php

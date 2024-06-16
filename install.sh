@@ -80,7 +80,7 @@ if [ $ENABLE_DEPENDENCIES = true ]; then
   echo '\033[1;33m> Dependencies\033[00m'
 
   docker compose down --remove-orphans
-  docker compose up --pull always -d --wait
+  docker compose up php --pull always -d --wait
 
   sleep 10
 
@@ -138,7 +138,7 @@ fi
 if [ $ENABLE_DOMAIN_DEPENDENCIES = true ]; then
   echo '\033[1;33m> Domain dependencies\033[00m'
 
-  docker compose up -d --wait
+  docker compose up php -d --wait
 
   sleep 10
 
@@ -160,7 +160,7 @@ fi
 if [ $ENABLE_DEV_DEPENDENCIES_DEV = true ]; then
   echo '\033[1;33m> Dev dependencies\033[00m'
 
-  docker compose up -d --wait
+  docker compose up php -d --wait
 
   sleep 10
 
@@ -190,7 +190,7 @@ fi
 if [ $ENABLE_QA = true ]; then
   echo '\033[1;33m> QA\033[00m'
 
-  docker compose up -d --wait
+  docker compose up php -d --wait
 
   sleep 10
 
@@ -238,7 +238,7 @@ fi
 if [ $ENABLE_DEFAULT_CONFIGURATION = true ]; then
   echo '\033[1;33m> Default configuration\033[00m'
 
-  docker compose up -d --wait
+  docker compose up php -d --wait
 
   sleep 10
 
@@ -293,7 +293,7 @@ if [ $ENABLE_TESTS = true ]; then
   touch tests/Test/Performance/.gitkeep
   touch tests/Test/Unit/.gitkeep
 
-  docker compose up -d --wait
+  docker compose up php -d --wait
 
   sleep 10
 
@@ -337,15 +337,14 @@ if [ $ENABLE_ADR = true ]; then
 fi
 
 
-rm install.sh
+#rm install.sh
 rm -fr _files
 
-docker compose up -d --wait
+docker compose up php -d --wait
+docker compose run --rm php chown -R "$(id -u):$(id -g)" .
 docker exec -it "$(docker compose ps -q php)" composer bump
 
 make qa
-
-echo '\033[1;32m>> 🎉 Installation completed.\033[00m'
 
 # End time
 end_time=$(date +%s)
@@ -355,8 +354,7 @@ execution_time=$((end_time - start_time))
 execution_time_minutes=$((execution_time / 60))
 execution_time_seconds=$((execution_time % 60))
 
+echo '\033[1;32m>> 🎉 Installation completed.\033[00m'
 echo '\033[1;32m>> 🕒 Execution time: '"$execution_time_minutes"' minutes '"$execution_time_seconds"' seconds.\033[00m'
-echo ''
-
 echo '\033[1;32m>> 🚀 Happy coding!\033[00m'
 echo ''
