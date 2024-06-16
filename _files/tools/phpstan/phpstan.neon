@@ -14,4 +14,4 @@ parameters:
         properties: true
         constants: true
         template_paths:
-            - ../../templates
+            - templates
