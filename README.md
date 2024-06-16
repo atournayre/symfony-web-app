@@ -1,4 +1,4 @@
-> **Note:** This project is a work in progress. It is not yet ready for production use.
+> **Warning:** This project is a work in progress. It is not yet ready for production use.
 
 # Symfony Web Application
 
@@ -9,7 +9,7 @@ Based on [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
 
 ## Getting Started
 
-Just run `sh ./install.sh` to install the project.
+Just run `sh install.sh` to install the project.
 
 Then read the new README.md file.
 

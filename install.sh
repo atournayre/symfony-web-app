@@ -45,6 +45,8 @@ if [ $ENABLE_INFRASTRUCTURE = true ]; then
 
   rm -rf .git
 
+  rm README.md
+
   git init
   git remote add origin $GIT_SYMFONY_DOCKER_TEMPLATE
   git pull origin main
