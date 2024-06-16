@@ -9,7 +9,8 @@ Based on [dunglas/symfony-docker](https://github.com/dunglas/symfony-docker)
 
 ## Getting Started
 
-Just run `sh install.sh` to install the project.
+1. Edit "Variables" section in `install.sh` file
+2. Run `sh install.sh`
 
 Then read the new README.md file.
 
