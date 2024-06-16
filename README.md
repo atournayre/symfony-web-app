@@ -1,3 +1,5 @@
+> **Note:** This project is a work in progress. It is not yet ready for production use.
+
 # Symfony Web Application
 
 By default, a [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
