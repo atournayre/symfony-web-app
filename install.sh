@@ -204,7 +204,8 @@ if [ $ENABLE_QA = true ]; then
     symfony/phpunit-bridge \
     spaze/phpstan-disallowed-calls \
     tomasvotruba/unused-public \
-    tomasvotruba/lines
+    tomasvotruba/lines \
+    phpstan/extension-installer
 
   docker compose run --rm php chown -R "$(id -u):$(id -g)" .
 
@@ -324,7 +325,8 @@ if [ $ENABLE_ADR = true ]; then
   echo '\033[1;33m> ADR\033[00m'
 
   mkdir -p docs/adr
-  touch docs/adr/README.md
+  mv _files/docs/architecture-decision-records.md docs/architecture-decision-records.md
+  mv _files/docs/adr/ADR-0001-Use-Postgresql-Database.md docs/adr/ADR-0001-Use-Postgresql-Database.md
 
   echo '# Architecture Decision Records' > docs/adr/README.md
 

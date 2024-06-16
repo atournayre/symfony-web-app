@@ -87,5 +87,5 @@ quality: ## Run Swiss Knife
 	@$(DOCKER_COMP) exec php vendor/bin/swiss-knife check-commented-code src --line-limit 5
 	@$(DOCKER_COMP) exec php vendor/bin/swiss-knife find-multi-classes src
 
-#fix: ## Run PHP-CS-Fixer
-#	@$(DOCKER_COMP) exec php vendor/bin/php-cs-fixer fix
+fix: ## Run PHP-CS-Fixer
+	@$(DOCKER_COMP) exec php vendor/bin/php-cs-fixer fix

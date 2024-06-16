@@ -6,8 +6,8 @@ use Rector\Config\RectorConfig;
 
 return RectorConfig::configure()
     ->withPaths([
-        __DIR__ . '/../src',
-        __DIR__ . '/../tests',
+        __DIR__.'/../src',
+        __DIR__.'/../tests',
     ])
     ->withPreparedSets(
         deadCode: true,
@@ -22,4 +22,4 @@ return RectorConfig::configure()
         importShortClasses: false,
         removeUnusedImports: true,
     )
-    ;
+;

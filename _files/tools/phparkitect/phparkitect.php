@@ -8,7 +8,7 @@ use Atournayre\PHPArkitect\Builder\RuleBuilder;
 use Atournayre\PHPArkitect\Set\Sets;
 
 return static function (Config $config): void {
-    $classSet = ClassSet::fromDir(__DIR__ . '/src');
+    $classSet = ClassSet::fromDir(__DIR__.'/src');
 
     $rules = RuleBuilder::create()
         ->set(Sets::apiPlatformDoctrineExtension())
