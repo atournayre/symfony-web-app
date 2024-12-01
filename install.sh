@@ -2,7 +2,7 @@
 
 ## Variables
 GIT_SYMFONY_DOCKER_TEMPLATE=https://github.com/dunglas/symfony-docker.git
-SYMFONY_VERSION="7.1.*"
+SYMFONY_VERSION="7.2.*"
 ## END / Variables
 
 # Start time
@@ -73,6 +73,7 @@ docker compose up --pull always -d --wait
 echo '\033[1;33m>> Install dependencies\033[00m'
 docker exec -it "$(docker compose ps -q php)" composer require \
 	api-platform/core:^3 \
+	atournayre/framework:^0 \
 	bgalati/monolog-sentry-handler \
 	doctrine/dbal \
 	doctrine/doctrine-bundle \
@@ -119,8 +120,6 @@ docker compose run --rm php chown -R "$(id -u):$(id -g)" .
 echo '\033[1;33m>> Install domain dependencies\033[00m'
 docker exec -it "$(docker compose ps -q php)" composer require \
 	archtechx/enums \
-	atournayre/collection \
-	atournayre/null:dev-main \
 	doctrine/collections \
 	nesbot/carbon
 
@@ -129,12 +128,8 @@ docker compose run --rm php chown -R "$(id -u):$(id -g)" .
 
 # Section : Dev dependencies dev
 echo '\033[1;33m>> Install dev dependencies\033[00m'
-touch config/packages/atournayre_maker.yaml
-echo 'atournayre_maker:' > config/packages/atournayre_maker.yaml
-echo '  root_namespace: App' >> config/packages/atournayre_maker.yaml
 
 docker exec -it "$(docker compose ps -q php)" composer require --dev \
-	atournayre/maker-bundle:0.0.0-beta2 \
 	zenstruck/foundry \
 	zenstruck/browser \
 	symfony/panther \
@@ -149,7 +144,6 @@ docker compose run --rm php chown -R "$(id -u):$(id -g)" .
 # Section : QA
 echo '\033[1;33m>> Install QA dependencies\033[00m'
 docker exec -it "$(docker compose ps -q php)" composer require --dev -W \
-	atournayre/phparkitect-rules \
 	friendsofphp/php-cs-fixer \
 	rector/rector \
 	rector/swiss-knife \
@@ -164,16 +158,15 @@ docker exec -it "$(docker compose ps -q php)" composer require --dev -W \
 	spaze/phpstan-disallowed-calls \
 	tomasvotruba/unused-public \
 	tomasvotruba/lines \
+	tomasvotruba/type-coverage \
 	phpstan/extension-installer
 
 echo '\033[1;33m>> Fix permissions\033[00m'
 docker compose run --rm php chown -R "$(id -u):$(id -g)" .
 
 mkdir -p tools
-mkdir -p tools/phparkitect
 mkdir -p tools/phpstan
 
-mv _files/tools/phparkitect/phparkitect.php tools/phparkitect/phparkitect.php
 mv _files/tools/phpstan/disallowed-calls.neon tools/phpstan/disallowed-calls.neon
 mv _files/tools/phpstan/phpstan.neon tools/phpstan/phpstan.neon
 mv _files/tools/rector.php tools/rector.php
@@ -199,6 +192,7 @@ mv _files/.github/* .github/
 echo '\033[1;33m>> Tests\033[00m'
 mkdir -p tests
 mkdir -p tests/Fixtures
+mkdir -p tests/InMemory
 mkdir -p tests/Test
 mkdir -p tests/Test/Api
 mkdir -p tests/Test/E2E
@@ -209,6 +203,7 @@ mkdir -p tests/Test/Performance
 mkdir -p tests/Test/Unit
 
 touch tests/Fixtures/.gitkeep
+touch tests/InMemory/.gitkeep
 touch tests/Test/.gitkeep
 touch tests/Test/Api/.gitkeep
 touch tests/Test/E2E/.gitkeep
